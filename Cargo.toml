@@ -1,0 +1,33 @@
+[package]
+name = "crashpack"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+publish = true
+description = "Privacy-first local diagnostic crash bundles for Rust applications"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/faizanali2k05/crashpack"
+documentation = "https://docs.rs/crashpack"
+keywords = ["crash-report", "diagnostics", "panic", "privacy", "tracing"]
+categories = ["development-tools::debugging", "rust-patterns"]
+
+[features]
+default = ["zip"]
+zip = ["dep:zip"]
+tracing = ["dep:tracing", "dep:tracing-subscriber"]
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+tracing = { version = "0.1", optional = true }
+tracing-subscriber = { version = "0.3", optional = true, features = ["registry"] }
+zip = { version = "2", optional = true, default-features = false, features = ["deflate"] }
+
+[dev-dependencies]
+tempfile = "3"
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
